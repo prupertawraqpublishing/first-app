@@ -18,7 +18,7 @@ pm2 delete first-app 2>/dev/null || true
 
 # Start the application with PM2
 cd /
-pm2 start "npx serve out" --name "first-app"
+pm2 start --name "first-app"
 
 # Save PM2 configuration to automatically restart on server reboot
 pm2 save
