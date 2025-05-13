@@ -12,13 +12,29 @@ if ! command -v pm2 &> /dev/null; then
     npm install -g pm2
 fi
 
+# Navigate to application directory
+cd /opt/first-app || {
+    echo "$(date): Failed to change directory to /opt/first-app" >> "$LOG_FILE"
+    exit 1
+}
+
+# Clean install dependencies
+echo "$(date): Installing dependencies..." >> "$LOG_FILE"
+npm install || {
+    echo "$(date): Failed to install dependencies" >> "$LOG_FILE"
+    exit 1
+}
+
 # Stop any existing instance
 pm2 stop first-app 2>/dev/null || true
 pm2 delete first-app 2>/dev/null || true
 
 # Start the application with PM2
-cd /
-pm2 start --name "first-app"
+echo "$(date): Starting Next.js application..." >> "$LOG_FILE"
+pm2 start ecosystem.js || {
+    echo "$(date): Failed to start application with PM2" >> "$LOG_FILE"
+    exit 1
+}
 
 # Save PM2 configuration to automatically restart on server reboot
 pm2 save
