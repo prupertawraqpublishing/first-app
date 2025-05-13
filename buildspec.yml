@@ -15,12 +15,11 @@ phases:
   post_build:
     commands:
       - echo Build completed
-      - echo Copying build files to S3...
-      - if [ -d ".next" ]; then aws s3 cp .next/ s3://codebuildbucket112/.next --recursive; else echo "Build directory not found"; exit 1; fi
+      - echo Copying build files to S3
 
 artifacts:
   files:
     - '**/*'
-  base-directory: '.next'
+  name: 'firstapp'
 
 
