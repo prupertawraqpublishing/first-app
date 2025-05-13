@@ -2,8 +2,12 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /var/www/html/
-hooks:  
+    destination: /
+hooks:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 600
+      runas: root
   ApplicationStart:
     - location: scripts/start_application.sh
       timeout: 300
