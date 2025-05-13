@@ -31,7 +31,7 @@ pm2 delete first-app 2>/dev/null || true
 
 # Start the application with PM2
 echo "$(date): Starting Next.js application..." >> "$LOG_FILE"
-pm2 start ecosystem.js || {
+pm2 start ecosystem.config.js || {
     echo "$(date): Failed to start application with PM2" >> "$LOG_FILE"
     exit 1
 }
